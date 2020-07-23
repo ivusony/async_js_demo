@@ -1,21 +1,22 @@
-function getDogsList(){
+function getDogsList(cb){
     const fetch = require('fetch').fetchUrl;
 
     fetch('https://dog.ceo/api/breeds/list/all', (e, m, data)=>{
         const dogsString = data.toString();
         const dogsArray = JSON.parse(dogsString).message;
         const randomDogFromArray = getRandomDogFromArray(dogsArray);
-        writeToFileAndDeleteIt(dogsString, randomDogFromArray);
+        writeToFileAndDeleteIt(dogsString, randomDogFromArray, cb);
     })
 }
 
 
 
-function writeToFileAndDeleteIt(dataToBeWritten, dogBreed){
+function writeToFileAndDeleteIt(dataToBeWritten, dogBreed, cb){
     const fs = require('fs');
     fs.writeFile('./dogsList', dataToBeWritten, (e, data)=>{
         if(e){
-            throw new Error('Data occured: ' + e)
+            cb(new Error('Data occured: ' + e));
+            return
         }
         // fake delay 1
         setTimeout(()=>{
@@ -23,20 +24,20 @@ function writeToFileAndDeleteIt(dataToBeWritten, dogBreed){
             // fake delay 2
             setTimeout(()=>{
                 console.log('Second timeout...and:')
-                deleteFile(getDogBreedImages, dogBreed);
+                deleteFile(getDogBreedImages, dogBreed, cb);
             }, 3000)
         }, 3000)
-        
     })
 }
 
 
 
-function deleteFile(getDogBreedImages, dogBreed){
+function deleteFile(getDogBreedImages, dogBreed, cb){
     const fs = require('fs');
     fs.unlink('./dogsList', ()=>{
         console.log('File deleted, getting dog breed images:');
-        getDogBreedImages(dogBreed)
+        cb(null, true);
+        getDogBreedImages(dogBreed);
     })
 }
 
@@ -58,4 +59,7 @@ function getDogBreedImages(dogBreed, saveToFileCb){
 }
 
 
-getDogsList();
+// getDogsList();
+
+
+module.exports = getDogsList;

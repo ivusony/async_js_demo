@@ -18,6 +18,18 @@ let getPost = new Promise((resolve, reject)=>{
         console.log("=================POST================");
         console.log(post);
         console.log("===============SAVED=================");
+        return deleteFile('./post.txt');
+    }
+)
+.then(
+    (msg)=>{
+        console.log(msg);
+    }
+)
+.catch(
+    (e)=>{
+        console.log('Error catched:');
+        console.log(e);
     }
 )
 
@@ -43,6 +55,7 @@ let testDelayedPromise = function(p) {
     return new Promise((resolve, reject)=>{
         setTimeout(()=>{
             resolve(p)
+            // reject(new Error('TEST ERROR'))
         }, 3000)
     }).then(
         (p)=>{
@@ -50,3 +63,18 @@ let testDelayedPromise = function(p) {
         }
     )
 } 
+
+
+let deleteFile = function(filePath) {
+    return new Promise((resolve, reject)=>{
+        const fs = require('fs');
+        setTimeout(()=>{
+            fs.unlink(filePath, (e)=>{
+                if(e){
+                    reject(e)
+                }
+                resolve('FILE DELETED')
+            })
+        }, 2000)
+    })
+}

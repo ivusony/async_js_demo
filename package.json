@@ -4,11 +4,14 @@
   "description": "",
   "main": "script.js",
   "dependencies": {
-    "fetch": "^1.1.0"
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "fetch": "^1.1.0",
+    "mocha": "^8.0.1"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "keywords": [],
   "author": "",
