@@ -54,7 +54,7 @@ function getDogBreedImages(dogBreed, saveToFileCb){
             throw new Error(`${dogBreed} images fetch failed`)
         }
         const images = JSON.parse(buff.toString()).message;
-        console.log(images)
+        // console.log(images)
     })
 }
 

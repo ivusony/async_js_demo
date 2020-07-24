@@ -1,4 +1,6 @@
-let promiseOne = new Promise((resolve, reject)=>{
+
+
+const promiseOne = new Promise((resolve, reject)=>{
     resolve(2);
 })
 
@@ -6,22 +8,22 @@ let promiseOne = new Promise((resolve, reject)=>{
 promiseOne.then(
     (value)=>{
         // value is 2 here
-        console.log(value);
+        // console.log(value);
         return promiseTwo;
     }
 ).then(
     (value2)=>{
         // value2 is 5 here because promiseTwo
-        console.log(value2);
+        // console.log(value2);
         return promiseThree(value2);
     }
 ).then(
     (value3)=>{
-        console.log(value3);
+        // console.log(value3);
     }
 )
 
-let promiseTwo = new Promise((resolve, reject)=>{
+const promiseTwo = new Promise((resolve, reject)=>{
     setTimeout(()=>{
         resolve(5)
     }, 3000)
@@ -39,3 +41,8 @@ function promiseThree(value){
         resolve(value * 2)
     })
 }
+
+
+module.exports =  function () {
+    return promiseTwo
+};
