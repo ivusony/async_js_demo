@@ -36,8 +36,7 @@ describe('Test getDogsList async function', function(){
     this.timeout(7000)
     it('should return 1 if file is created', (done)=>{
         getDogsList((err, deleted)=>{
-            expect(deleted).to.equal(true);
-            done();
+            expect(deleted).to.equal(true).notify(done)
         })
     })
 })
